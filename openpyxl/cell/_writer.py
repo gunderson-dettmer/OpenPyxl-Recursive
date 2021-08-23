@@ -71,7 +71,7 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
         # references, for one). Setting the value equal to some seed value
         # will avoid this issue in many circumstances... this is a very
         # very naive approach of setting a value of 1 initially (to avoid DIV/0)
-        elif value is None and cell.data_type == 'f':
+        elif cell.data_type == 'f':
             cell_content.text = safe_string('1')
 
     xf.write(el)
