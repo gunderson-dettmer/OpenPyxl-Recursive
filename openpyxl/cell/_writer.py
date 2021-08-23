@@ -52,6 +52,8 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
     if cell.data_type == 'f':
         shared_formula = worksheet.formula_attributes.get(cell.coordinate, {})
         formula = SubElement(el, 'f', shared_formula)
+        print(f"Formula type: {formula}")
+        print(f"Value is: {value}")
         if value is not None:
             formula.text = value[1:]
             value = None
@@ -68,7 +70,7 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
         if value is not None:
             cell_content.text = safe_string(value)
 
-    print(f"etree cell: {el}")
+    print(f"etree cell: {el.__dict__}")
 
     xf.write(el)
 
