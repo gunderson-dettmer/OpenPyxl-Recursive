@@ -44,6 +44,10 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
 
     value, attributes = _set_attributes(cell, styled)
 
+    print("etree_write_cell")
+    print(f"value: {value}")
+    print(f"attributes: {attributes}")
+
     el = Element("c", attributes)
     if value is None or value == "":
         xf.write(el)
