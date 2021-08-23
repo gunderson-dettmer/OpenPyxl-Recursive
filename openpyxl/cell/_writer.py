@@ -50,9 +50,13 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
         return
 
     if cell.data_type == 'f':
+        print("Formula type...")
         shared_formula = worksheet.formula_attributes.get(cell.coordinate, {})
+        print(f"Shared formula: {shared_formula}")
         formula = SubElement(el, 'f', shared_formula)
-        print(f"Formula type: {formula}")
+        pre_computed_value = SubElement(el, 'v')
+        pre_computed_value.text = 0
+        print(f"Formula: {formula}")
         print(f"Value is: {value}")
         if value is not None:
             formula.text = value[1:]
