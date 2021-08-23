@@ -78,6 +78,9 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
         cell_content = SubElement(el, 'v')
         if value is not None:
             cell_content.text = safe_string(value)
+        else:
+            if cell.data_type == 'f' and value is None:
+                cell_content.text = safe_string('1') # Trying to avoid #Value! error
 
     print(f"~~~~~~~~ Etree cell")
     print(f"{el.attrib}")
