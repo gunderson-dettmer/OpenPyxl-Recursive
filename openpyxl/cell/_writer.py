@@ -70,7 +70,14 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
         if value is not None:
             cell_content.text = safe_string(value)
 
-    print(f"etree cell: {el.__dict__}")
+    print(f"~~~~~~~~ Etree cell")
+    print(f"{el.attrib}")
+    print("Key/values:")
+    for k in el.keys():
+        print(f"{k}: {el[k]}")
+    print("Text:")
+    print(el.text)
+    print(f"~~~~~~~~ Etree cell")
 
     xf.write(el)
 
