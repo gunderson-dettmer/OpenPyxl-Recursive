@@ -44,52 +44,35 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
 
     value, attributes = _set_attributes(cell, styled)
 
-    print("etree_write_cell")
-    print(f"value: {value}")
-    print(f"attributes: {attributes}")
-
     el = Element("c", attributes)
     if value is None or value == "":
         xf.write(el)
         return
 
     if cell.data_type == 'f':
-        print("Formula type...")
         shared_formula = worksheet.formula_attributes.get(cell.coordinate, {})
-        print(f"Shared formula: {shared_formula}")
-        formula = SubElement(el, 'f', {"v": "1"})
-        # pre_computed_value = SubElement(el, 'v')
-        # pre_computed_value.text = 1
-        print(f"Formula: {formula}")
-        print(f"Value is: {value}")
+        formula = SubElement(el, 'f', shared_formula)
         if value is not None:
             formula.text = value[1:]
             value = None
 
     if cell.data_type == 's':
-        print("Cell data type is 's'")
         inline_string = SubElement(el, 'is')
         text = SubElement(inline_string, 't')
         text.text = value
         whitespace(text)
 
-
     else:
         cell_content = SubElement(el, 'v')
         if value is not None:
             cell_content.text = safe_string(value)
-        else:
-            if cell.data_type == 'f' and value is None:
-                cell_content.text = safe_string('1') # Trying to avoid #Value! error
-
-    print(f"~~~~~~~~ Etree cell")
-    print(f"{el.attrib}")
-    print("Keys:")
-    for k in el.keys():
-        print(f"{k}")
-    print("Text:")
-    print(el.text)
-    print(f"~~~~~~~~ Etree cell")
+        # Openpyxl does not evaluate formulas so it leaves the <v>
+        # element blank. This leads to #Value! errors in some situations (circular
+        # references, for one). Setting the value equal to some seed value
+        # will avoid this issue in many circumstances... this is a very
+        # very naive approach of setting a value of 1 initially (to avoid DIV/0)
+        elif value is None and cell.data_type == 'f':
+            cell_content.text = safe_string('1')
 
     xf.write(el)
 

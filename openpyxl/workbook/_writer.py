@@ -53,7 +53,6 @@ class WorkbookWriter:
         self.package.workbookProtection = wb.security
         self.package.calcPr = wb.calculation
 
-
     def write_properties(self):
 
         props = WorkbookProperties() # needs a mapping to the workbook for preservation
