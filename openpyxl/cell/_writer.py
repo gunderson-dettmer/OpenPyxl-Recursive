@@ -59,6 +59,7 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
             value = None
 
     if cell.data_type == 's':
+        print("Cell data type is 's'")
         inline_string = SubElement(el, 'is')
         text = SubElement(inline_string, 't')
         text.text = value
@@ -72,9 +73,9 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
 
     print(f"~~~~~~~~ Etree cell")
     print(f"{el.attrib}")
-    print("Key/values:")
+    print("Keys:")
     for k in el.keys():
-        print(f"{k}: {el[k]}")
+        print(f"{k}")
     print("Text:")
     print(el.text)
     print(f"~~~~~~~~ Etree cell")
