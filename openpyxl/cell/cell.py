@@ -111,15 +111,12 @@ class Cell(StyleableObject):
         # _value is the stored value, while value is the displayed value
         # _static seed is the pre-calculated value for a formula which can be set manually if needed
         self._value = None
-        self._static_seed = None
+        self.static_seed = static_seed
         self._hyperlink = None
         self.data_type = 'n'
         if value is not None:
             self.value = value
-        if static_seed is not None:
-            self._static_seed = static_seed
         self._comment = None
-
 
     @property
     def coordinate(self):
@@ -217,15 +214,6 @@ class Cell(StyleableObject):
     def value(self, value):
         """Set the value and infer type and display options."""
         self._bind_value(value)
-
-    @property
-    def static_seed(self):
-        """Get or set the pre-calculated value for the cell if there's a formula.
-
-        :type: depends on the value (string, float, int or
-            :class:`datetime.datetime`)
-        """
-        return self._static_seed
 
     @property
     def internal_value(self):
