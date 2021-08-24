@@ -42,8 +42,6 @@ def _set_attributes(cell, styled=None):
 
 def etree_write_cell(xf, worksheet, cell, styled=None):
 
-    print(f"etree_write_cell - cell type: {type(cell)}")
-
     value, attributes = _set_attributes(cell, styled)
 
     el = Element("c", attributes)
@@ -73,8 +71,8 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
         # references, for one). Setting the value equal to some seed value
         # will avoid this issue in many circumstances... this is a very
         # very naive approach of setting a value of 1 initially (to avoid DIV/0)
-        elif cell.data_type == 'f':
-            cell_content.text = safe_string('1')
+        elif cell.data_type == 'f' and cell.static_seed is not None:
+            cell_content.text = safe_string(cell.static_seed)
 
     xf.write(el)
 
