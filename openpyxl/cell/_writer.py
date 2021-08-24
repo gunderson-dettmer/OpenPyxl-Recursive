@@ -71,14 +71,13 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
         # references, for one). Setting the value equal to some seed value
         # will avoid this issue in many circumstances... this is a very
         # very naive approach of setting a value of 1 initially (to avoid DIV/0)
-        elif cell.data_type == 'f' and cell.static_seed is not None:
-            cell_content.text = safe_string(cell.static_seed)
+        elif cell.data_type == 'f':
+            cell_content.text = safe_string('1')
 
     xf.write(el)
 
 
 def lxml_write_cell(xf, worksheet, cell, styled=False):
-
     value, attributes = _set_attributes(cell, styled)
 
     if value == '' or value is None:

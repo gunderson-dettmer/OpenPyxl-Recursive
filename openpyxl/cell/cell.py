@@ -96,27 +96,24 @@ class Cell(StyleableObject):
         'row',
         'column',
         '_value',
-        'static_seed',
         'data_type',
         'parent',
         '_hyperlink',
         '_comment',
                  )
 
-    def __init__(self, worksheet, row=None, column=None, value=None, style_array=None, static_seed=None):
+    def __init__(self, worksheet, row=None, column=None, value=None, style_array=None):
         super(Cell, self).__init__(worksheet, style_array)
         self.row = row
         """Row number of this cell (1-based)"""
         self.column = column
         """Column number of this cell (1-based)"""
         # _value is the stored value, while value is the displayed value
-        # _static seed is the pre-calculated value for a formula which can be set manually if needed
         self._value = None
         self._hyperlink = None
         self.data_type = 'n'
         if value is not None:
             self.value = value
-        self.static_seed = static_seed
         self._comment = None
 
     @property
