@@ -42,6 +42,8 @@ def _set_attributes(cell, styled=None):
 
 def etree_write_cell(xf, worksheet, cell, styled=None):
 
+    print(f"etree_write_cell - cell type: {type(cell)}")
+
     value, attributes = _set_attributes(cell, styled)
 
     el = Element("c", attributes)
@@ -78,6 +80,7 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
 
 
 def lxml_write_cell(xf, worksheet, cell, styled=False):
+
     value, attributes = _set_attributes(cell, styled)
 
     if value == '' or value is None:
