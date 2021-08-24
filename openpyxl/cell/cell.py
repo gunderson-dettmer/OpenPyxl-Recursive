@@ -96,6 +96,7 @@ class Cell(StyleableObject):
         'row',
         'column',
         '_value',
+        'static_seed',
         'data_type',
         'parent',
         '_hyperlink',
@@ -111,11 +112,11 @@ class Cell(StyleableObject):
         # _value is the stored value, while value is the displayed value
         # _static seed is the pre-calculated value for a formula which can be set manually if needed
         self._value = None
-        self.static_seed = static_seed
         self._hyperlink = None
         self.data_type = 'n'
         if value is not None:
             self.value = value
+        self.static_seed = static_seed
         self._comment = None
 
     @property
@@ -199,7 +200,6 @@ class Cell(StyleableObject):
                 self.data_type = 'e'
 
         self._value = value
-
 
     @property
     def value(self):
