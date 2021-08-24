@@ -111,6 +111,7 @@ class Cell(StyleableObject):
         # _value is the stored value, while value is the displayed value
         # _static seed is the pre-calculated value for a formula which can be set manually if needed
         self._value = None
+        self._static_seed = None
         self._hyperlink = None
         self.data_type = 'n'
         if value is not None:
@@ -225,11 +226,6 @@ class Cell(StyleableObject):
             :class:`datetime.datetime`)
         """
         return self._static_seed
-
-    @value.setter
-    def static_seed(self, static_seed):
-        """Set the value and infer type and display options."""
-        self._static_seed = static_seed
 
     @property
     def internal_value(self):
