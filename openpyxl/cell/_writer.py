@@ -72,7 +72,7 @@ def etree_write_cell(xf, worksheet, cell, styled=None):
         # will avoid this issue in many circumstances... this is a very
         # very naive approach of setting a value of 1 initially (to avoid DIV/0)
         elif cell.data_type == 'f':
-            cell_content.text = safe_string('1')
+            cell_content.text = safe_string('0')
 
     xf.write(el)
 
